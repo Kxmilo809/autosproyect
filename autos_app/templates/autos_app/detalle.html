@@ -1,0 +1,14 @@
+{% extends 'autos_app/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>{{ marca }} {{ modelo }}</h1>
+<p><strong>Año:</strong> {{ info.year }}</p>
+<p><strong>Potencia:</strong> {{ info.potencia }}</p>
+<p><strong>Precio:</strong> {{ info.price }}</p>
+<p><strong>Combustible:</strong> {{ info.combustible }}</p>
+<p><strong>Transmisión:</strong> {{ info.transmision }}</p>
+<p><strong>Motor:</strong> {{ info.motor }}</p>
+<img src="{{ info.imagen.url }}" width="300" class="img-fluid rounded">
+<a href="{% url 'modelos' tipo marca %}" class="btn btn-secondary mt-3">Volver</a>
+{% endblock %}

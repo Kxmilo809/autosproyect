@@ -1,0 +1,54 @@
+{% extends 'autos_app/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Panel de Administración</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Vehículos</h5>
+                    <p class="card-text">Agregar nuevo vehículo al catálogo.</p>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="form_type" value="vehicle">
+                        {{ vehicle_form.as_p }}
+                        <button type="submit" class="btn btn-primary">Crear Vehículo</button>
+                    </form>
+                    <a href="{% url 'vehicle_list' %}" class="btn btn-secondary mt-2">Ver Vehículos</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Clientes</h5>
+                    <p class="card-text">Agregar nuevo cliente.</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="form_type" value="client">
+                        {{ client_form.as_p }}
+                        <button type="submit" class="btn btn-primary">Crear Cliente</button>
+                    </form>
+                    <a href="{% url 'client_list' %}" class="btn btn-secondary mt-2">Ver Clientes</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Mantenimientos</h5>
+                    <p class="card-text">Agregar nuevo registro de mantenimiento.</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="form_type" value="maintenance">
+                        {{ maintenance_form.as_p }}
+                        <button type="submit" class="btn btn-primary">Crear Mantenimiento</button>
+                    </form>
+                    <a href="{% url 'maintenance_list' %}" class="btn btn-secondary mt-2">Ver Mantenimientos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

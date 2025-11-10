@@ -1,0 +1,43 @@
+{% extends 'autos_app/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Lista de Mantenimientos</h1>
+    {% if user.is_staff or user.is_superuser %}
+        <a href="{% url 'maintenance_create' %}" class="btn btn-primary mb-3">Crear Mantenimiento</a>
+    {% endif %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Vehículo</th>
+                <th>Fecha</th>
+                <th>Descripción</th>
+                <th>Costo</th>
+                {% if user.is_staff or user.is_superuser %}
+                    <th>Acciones</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for maintenance in maintenances %}
+            <tr>
+                <td>{{ maintenance.vehicle }}</td>
+                <td>{{ maintenance.date }}</td>
+                <td>{{ maintenance.description|truncatechars:50 }}</td>
+                <td>${{ maintenance.cost }}</td>
+                {% if user.is_staff or user.is_superuser %}
+                    <td>
+                        <a href="{% url 'maintenance_update' maintenance.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{% url 'maintenance_delete' maintenance.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                {% endif %}
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="{% if user.is_staff or user.is_superuser %}5{% else %}4{% endif %}" class="text-center">No hay mantenimientos registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

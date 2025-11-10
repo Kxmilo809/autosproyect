@@ -1,0 +1,41 @@
+{% extends 'autos_app/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Lista de Clientes</h1>
+    {% if user.is_staff or user.is_superuser %}
+        <a href="{% url 'client_create' %}" class="btn btn-primary mb-3">Crear Cliente</a>
+    {% endif %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                {% if user.is_staff or user.is_superuser %}
+                    <th>Acciones</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+            <tr>
+                <td>{{ client.name }}</td>
+                <td>{{ client.email }}</td>
+                <td>{{ client.phone }}</td>
+                {% if user.is_staff or user.is_superuser %}
+                    <td>
+                        <a href="{% url 'client_update' client.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{% url 'client_delete' client.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                {% endif %}
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="{% if user.is_staff or user.is_superuser %}4{% else %}3{% endif %}" class="text-center">No hay clientes registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

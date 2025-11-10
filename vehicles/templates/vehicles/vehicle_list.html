@@ -1,0 +1,43 @@
+{% extends 'autos_app/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Lista de Vehículos</h1>
+    {% if user.is_staff or user.is_superuser %}
+        <a href="{% url 'vehicle_create' %}" class="btn btn-primary mb-3">Crear Vehículo</a>
+    {% endif %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Año</th>
+                <th>Precio</th>
+                {% if user.is_staff or user.is_superuser %}
+                    <th>Acciones</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for vehicle in vehicles %}
+            <tr>
+                <td>{{ vehicle.brand }}</td>
+                <td>{{ vehicle.name }}</td>
+                <td>{{ vehicle.year }}</td>
+                <td>${{ vehicle.price }}</td>
+                {% if user.is_staff or user.is_superuser %}
+                    <td>
+                        <a href="{% url 'vehicle_update' vehicle.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{% url 'vehicle_delete' vehicle.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                {% endif %}
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="{% if user.is_staff or user.is_superuser %}5{% else %}4{% endif %}" class="text-center">No hay vehículos registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

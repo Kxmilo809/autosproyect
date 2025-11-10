@@ -1,0 +1,17 @@
+{% extends 'autos_app/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="text-center">
+    <h1>Bienvenidos a CCautomotriz</h1>
+    <p>{{ empresa_info }}</p>
+</div>
+
+<div class="row">
+    {% for foto in fotos_autos %}
+    <div class="col-md-4 mb-3">
+        <img src="{% static foto %}" class="img-fluid rounded" alt="Auto">
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

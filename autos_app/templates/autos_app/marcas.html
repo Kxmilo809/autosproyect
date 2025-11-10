@@ -1,0 +1,11 @@
+{% extends 'autos_app/base.html' %}
+
+{% block content %}
+<h1>Marcas de {{ tipo }}</h1>
+<ul class="list-group">
+    {% for marca in marcas %}
+    <li class="list-group-item"><a href="{% url 'modelos' tipo|title marca.name %}">{{ marca.name }}</a></li>
+    {% endfor %}
+</ul>
+<a href="{% url 'index' %}" class="btn btn-secondary mt-3">Volver</a>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'autos_app/base.html' %}
+
+{% block content %}
+<h1>Catálogo de Autos</h1>
+<ul class="list-group">
+    {% for tipo in tipos %}
+    <li class="list-group-item"><a href="{% url 'marcas' tipo.name|title %}">{{ tipo.name }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
